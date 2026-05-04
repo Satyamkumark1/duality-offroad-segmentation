@@ -427,13 +427,6 @@ python visualize_segmentation.py --image path/to/image.png
 
 ---
 
-## 📞 Contact & Support
-
-### Team Information
-- **Team Name**: CascadeVision
-- **Team Member**: Cashify Singh
-- **Email**: shalininannu1@gmail.com
-- **GitHub**: [Repository URL]
 
 ### Technical Support
 - 📖 **Documentation**: Complete guide in this README
