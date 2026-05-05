@@ -118,21 +118,80 @@ source EDU/bin/activate
 
 ### Training
 ```bash
-# Standard training
-python train.py
+# Standard training (baseline model)
+python src/train.py
 
 # Advanced training with TTA and class weights
-python train_advanced.py
+python src/train_advanced.py
+
+# 🚀 NEW: Ensemble training (recommended for competition)
+python src/train_ensemble.py
 ```
+
+### 🏆 Ensemble Training (NEW!)
+**For maximum performance, we've implemented professional model ensembling:**
+
+#### **What is Ensembling?**
+Combines multiple models to achieve superior performance:
+- **UNet + ResNet34** (weight: 0.4) - Baseline model
+- **UNet + ResNet50** (weight: 0.35) - Deeper architecture  
+- **FPN + ResNet34** (weight: 0.25) - Feature pyramid network
+
+#### **Expected Performance Gain: +5-8% IoU**
+
+#### **Professional Implementation:**
+```python
+# Create ensemble with 3 different architectures
+from src.ensemble import SegmentationEnsemble
+
+ensemble = SegmentationEnsemble(models, weights=[0.4, 0.35, 0.25])
+prediction = ensemble.predict(image)
+```
+
+#### **Training Command:**
+```bash
+python src/train_ensemble.py
+```
+
+**Output:** 3 trained models + ensemble configuration
 
 ### Testing
 ```bash
 # Standard testing
-python test.py
+python src/test.py
 
 # Advanced testing with TTA
-python test_advanced.py
+python src/test_advanced.py
+
+# 🏆 NEW: Ensemble evaluation (recommended)
+python src/evaluate_ensemble.py
 ```
+
+### 🏆 Ensemble Evaluation (NEW!)
+**Professional ensemble evaluation with comprehensive metrics:**
+
+#### **Features:**
+- **Multi-Model Ensemble**: UNet34 + UNet50 + FPN
+- **Weighted Voting**: Optimized model contributions
+- **Comprehensive Metrics**: IoU, Dice, confusion matrix
+- **Professional Visualizations**: Per-class analysis, performance charts
+
+#### **Expected Results:**
+- **IoU Gain**: +5-8% over baseline
+- **Robustness**: Better handling of edge cases
+- **Professional Report**: Detailed performance analysis
+
+#### **Evaluation Command:**
+```bash
+python src/evaluate_ensemble.py
+```
+
+**Output Files:**
+- `runs/ensemble_evaluation_report.json` - Detailed metrics
+- `runs/ensemble_visualizations/` - Professional charts
+- Per-class IoU analysis
+- Confusion matrix heatmap
+- Performance distribution charts
 
 ### Visualization
 ```bash
@@ -153,15 +212,21 @@ duality-offroad-segmentation/
 ├── 📄 README_FINAL.md          # This comprehensive guide
 ├── 📄 FINAL_REPORT.md           # Detailed technical report
 ├── 📄 SUBMISSION_PACKAGE.md     # Competition submission guide
-├── 🐍 train.py                  # Standard training script
-├── 🐍 train_advanced.py         # Advanced training with TTA
-├── 🐍 test.py                   # Standard testing script
-├── 🐍 test_advanced.py          # Advanced testing with TTA
+├── � src/                     # Source code
+│   ├── � train.py             # Standard training script
+│   ├── 🐍 train_advanced.py    # Advanced training with TTA
+│   ├── 🐍 train_ensemble.py   # 🚀 NEW: Ensemble training
+│   ├── 🐍 test.py              # Standard testing script
+│   ├── 🐍 test_advanced.py     # Advanced testing with TTA
+│   ├── 🐍 evaluate_ensemble.py # 🏆 NEW: Ensemble evaluation
+│   └── 🐍 ensemble.py         # 🚀 NEW: Ensemble implementation
 ├── 🐍 visualize_segmentation.py  # Visualization utilities
 ├── 🔧 setup_env.sh              # Environment setup
 ├── 📁 runs/                     # Training outputs
 │   ├── best_model.pth          # Trained model weights
 │   ├── training_curves.png     # Performance graphs
+│   ├── ensemble_evaluation_report.json # Ensemble metrics
+│   └── ensemble_visualizations/ # Ensemble visualizations
 │   └── training_history.json   # Detailed metrics
 ├── 📁 outputs/                  # Test results
 │   ├── predictions/            # Segmentation masks
@@ -302,6 +367,8 @@ criterion = nn.CrossEntropyLoss(weight=class_weights)
 - 🚀 **Advanced Architecture**: UNet with attention mechanisms
 - 🔄 **Robust Training**: Proper augmentation and regularization
 - 📊 **Comprehensive Evaluation**: Detailed metrics and analysis
+- 🏆 **NEW: Model Ensembling**: 3 architectures + weighted voting
+- 🎯 **NEW: Multi-Model Strategy**: UNet34 + UNet50 + FPN
 
 ### Innovation Highlights
 - 🌟 **Test-Time Augmentation**: 11 transformation ensemble
